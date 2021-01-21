@@ -28,6 +28,7 @@ const initialState = {
 function App() {
   const [formState, setFormState] = useState(initialState);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [usersList, setUsersList] = useState([]);
   const [errorsState, setErrorsState] = useState({
     firstName: "",
     lastName: "",
@@ -74,6 +75,7 @@ function App() {
   useEffect(() => {
     axios.post("https://reqres.in/api/users", formState).then(
       (response) => {
+        setUsersList(response.data);
         console.log(response);
       },
       (error) => {
@@ -98,7 +100,7 @@ function App() {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
-      <pre>{JSON.stringify(formState.firstName)}</pre>
+      <pre>{JSON.stringify(usersList)}</pre>
     </div>
   );
 }
